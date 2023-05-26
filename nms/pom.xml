@@ -36,7 +36,7 @@
         <mojang.brigadier.version>1.0.18</mojang.brigadier.version>
 
         <!-- Maven plugins -->
-        <maven.specialsource.plugin.version>1.2.2</maven.specialsource.plugin.version>
+        <maven.specialsource.plugin.version>1.2.5</maven.specialsource.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -64,12 +64,6 @@
                 <artifactId>spigot</artifactId>
                 <version>${spigot.version}</version>
                 <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.spigotmc</groupId>
-                        <artifactId>minecraft-server</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- Spigot NMS (Remapped Mojang) -->
@@ -79,12 +73,6 @@
                 <version>${spigot.version}</version>
                 <classifier>remapped-mojang</classifier>
                 <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.spigotmc</groupId>
-                        <artifactId>minecraft-server</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- Mojang Authlib -->
@@ -93,12 +81,6 @@
                 <artifactId>authlib</artifactId>
                 <version>${mojang.authlib.version}</version>
                 <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.gson</groupId>
-                        <artifactId>gson</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- Mojang Brigadier -->
@@ -135,8 +117,10 @@
                             </goals>
                             <id>remap-obf</id>
                             <configuration>
+                                <!--suppress UnresolvedMavenProperty -->
                                 <srgIn>org.spigotmc:minecraft-server:${spigot.version}:txt:maps-mojang</srgIn>
                                 <reverse>true</reverse>
+                                <!--suppress UnresolvedMavenProperty -->
                                 <remappedDependencies>org.spigotmc:spigot:${spigot.version}:jar:remapped-mojang</remappedDependencies>
                                 <remappedArtifactAttached>true</remappedArtifactAttached>
                                 <remappedClassifierName>remapped-obf</remappedClassifierName>
@@ -150,7 +134,9 @@
                             <id>remap-spigot</id>
                             <configuration>
                                 <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
+                                <!--suppress UnresolvedMavenProperty -->
                                 <srgIn>org.spigotmc:minecraft-server:${spigot.version}:csrg:maps-spigot</srgIn>
+                                <!--suppress UnresolvedMavenProperty -->
                                 <remappedDependencies>org.spigotmc:spigot:${spigot.version}:jar:remapped-obf</remappedDependencies>
                                 <remappedClassifierName>remapped-spigot</remappedClassifierName>
                             </configuration>
@@ -168,11 +154,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-            </plugin>
-        </plugins>
     </build>
 </project>

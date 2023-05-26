@@ -14,7 +14,7 @@
     <name>Packet Inventory API - NMS 1.13.R1</name>
 
     <properties>
-        <spigot.version>1.13-SNAPSHOT</spigot.version>
+        <spigot.version>1.13-R0.1-SNAPSHOT</spigot.version>
     </properties>
 
     <dependencies>
@@ -27,7 +27,7 @@
         <!-- Spigot 1.13 -->
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
+            <artifactId>spigot-api</artifactId>
         </dependency>
 
         <!-- ProtocolLib -->

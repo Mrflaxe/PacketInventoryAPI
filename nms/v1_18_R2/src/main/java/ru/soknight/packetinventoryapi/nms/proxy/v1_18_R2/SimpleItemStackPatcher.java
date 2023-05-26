@@ -2,6 +2,8 @@ package ru.soknight.packetinventoryapi.nms.proxy.v1_18_R2;
 
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Vex;
 import org.bukkit.inventory.meta.ItemMeta;
 import ru.soknight.packetinventoryapi.nms.ItemStackPatcher;
 import ru.soknight.packetinventoryapi.util.ReflectionHelper;
