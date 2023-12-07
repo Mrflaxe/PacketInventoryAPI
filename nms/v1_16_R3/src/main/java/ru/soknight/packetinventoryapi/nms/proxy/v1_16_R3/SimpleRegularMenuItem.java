@@ -4,6 +4,7 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_16_R3.ItemStack;
+import net.minecraft.server.v1_16_R3.PathEntity;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,7 +35,7 @@ public final class SimpleRegularMenuItem extends AbstractRegularMenuItem<SimpleR
     public ItemStack asVanillaItem() {
         if(itemRemapRequired || nmsItem == null)
             nmsItem = CraftItemStack.asNMSCopy(asBukkitItem());
-
+        
         itemRemapRequired = false;
         return nmsItem;
     }

@@ -57,27 +57,26 @@ public class MenuParser {
         }
 
         ConfigurationSection content = configuration.getConfigurationSection("content");
-        if(content == null)
-            throw new NoContentProvidedException(fileName);
-
-        Set<String> keys = content.getKeys(false);
-        if(!keys.isEmpty()) {
-            Map<String, MenuItem> items = new LinkedHashMap<>();
-            for(String key : keys) {
-                if(!content.isConfigurationSection(key))
-                    continue;
-
-                MenuItem item = parseItem(content.getConfigurationSection(key), fileName, itemStructure);
-                items.put(key, item);
+        if(content != null) {
+            Set<String> keys = content.getKeys(false);
+            if(!keys.isEmpty()) {
+                Map<String, MenuItem> items = new LinkedHashMap<>();
+                for(String key : keys) {
+                    if(!content.isConfigurationSection(key))
+                        continue;
+                    
+                    MenuItem item = parseItem(content.getConfigurationSection(key), fileName, itemStructure);
+                    items.put(key, item);
+                }
+                
+                MenuItem filler = items.remove(FILLER_KEY);
+                if(filler instanceof DisplayableMenuItem)
+                    dataBundle.setFiller((DisplayableMenuItem) filler);
+                
+                dataBundle.addMenuItems(items);
             }
-
-            MenuItem filler = items.remove(FILLER_KEY);
-            if(filler instanceof DisplayableMenuItem)
-                dataBundle.setFiller((DisplayableMenuItem) filler);
-
-            dataBundle.addMenuItems(items);
         }
-
+        
         return dataBundle;
     }
 

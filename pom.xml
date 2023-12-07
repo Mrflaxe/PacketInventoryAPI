@@ -34,14 +34,14 @@
 
         <!-- Additional libs versions -->
         <spigot.api.version>1.15.2-R0.1-SNAPSHOT</spigot.api.version>
-        <protocollib.version>4.8.0-SNAPSHOT</protocollib.version>
+        <protocollib.version>4.8.0</protocollib.version>
         <placeholderapi.version>2.11.1</placeholderapi.version>
         <advancedskins.api.version>2.1.0</advancedskins.api.version>
         <itemsadder.api.version>2.4.21</itemsadder.api.version>
         <jetbrains.annotations.version>22.0.0</jetbrains.annotations.version>
         <lombok.version>1.18.22</lombok.version>
-        
-        <systempath.advancedskins>C:/libs/AdvancedSkins-api.jar</systempath.advancedskins>
+
+        <systempath.advancedskins>C:/Work/libs/AdvancedSkins-api.jar</systempath.advancedskins>
 
         <!-- Maven plugins -->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -77,6 +77,11 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+        <!-- Spigot Maven repository -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
