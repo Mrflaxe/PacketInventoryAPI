@@ -16,16 +16,7 @@
     <name>Packet Inventory API - NMS</name>
 
     <modules>
-        <module>v1_13_R1</module>
-        <module>v1_13_R2</module>
-        <module>v1_14_R1</module>
-        <module>v1_15_R1</module>
-        <module>v1_16_R1</module>
-        <module>v1_16_R2</module>
-        <module>v1_16_R3</module>
-        <module>v1_17_R1</module>
-        <module>v1_18_R1</module>
-        <module>v1_18_R2</module>
+        <module>v1_21_R5</module>
     </modules>
 
     <properties>
@@ -58,23 +49,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- Spigot NMS -->
-            <dependency>
-                <groupId>org.spigotmc</groupId>
-                <artifactId>spigot</artifactId>
-                <version>${spigot.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!-- Spigot NMS (Remapped Mojang) -->
-            <dependency>
-                <groupId>org.spigotmc</groupId>
-                <artifactId>spigot</artifactId>
-                <version>${spigot.version}</version>
-                <classifier>remapped-mojang</classifier>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- Mojang Authlib -->
             <dependency>
                 <groupId>com.mojang</groupId>
@@ -101,49 +75,16 @@
         </dependencies>
     </dependencyManagement>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>bytecode.space</id>
+            <url>https://repo.bytecode.space/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Special source plugin (md_5) -->
-                <plugin>
-                    <groupId>net.md-5</groupId>
-                    <artifactId>specialsource-maven-plugin</artifactId>
-                    <version>${maven.specialsource.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>remap</goal>
-                            </goals>
-                            <id>remap-obf</id>
-                            <configuration>
-                                <!--suppress UnresolvedMavenProperty -->
-                                <srgIn>org.spigotmc:minecraft-server:${spigot.version}:txt:maps-mojang</srgIn>
-                                <reverse>true</reverse>
-                                <!--suppress UnresolvedMavenProperty -->
-                                <remappedDependencies>org.spigotmc:spigot:${spigot.version}:jar:remapped-mojang</remappedDependencies>
-                                <remappedArtifactAttached>true</remappedArtifactAttached>
-                                <remappedClassifierName>remapped-obf</remappedClassifierName>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>remap</goal>
-                            </goals>
-                            <id>remap-spigot</id>
-                            <configuration>
-                                <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
-                                <!--suppress UnresolvedMavenProperty -->
-                                <srgIn>org.spigotmc:minecraft-server:${spigot.version}:csrg:maps-spigot</srgIn>
-                                <!--suppress UnresolvedMavenProperty -->
-                                <remappedDependencies>org.spigotmc:spigot:${spigot.version}:jar:remapped-obf</remappedDependencies>
-                                <remappedClassifierName>remapped-spigot</remappedClassifierName>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-
                 <!-- Maven deploy plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -151,6 +92,21 @@
                     <configuration>
                         <skip>true</skip>
                     </configuration>
+                </plugin>
+
+                <!-- Paperweight maven plugin -->
+                <plugin>
+                    <groupId>ca.bkaw</groupId>
+                    <artifactId>paper-nms-maven-plugin</artifactId>
+                    <version>1.4.10</version>
+                    <executions>
+                        <execution>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>remap</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -56,6 +56,9 @@ local-maven-repo/
 # Code Recommenders
 .recommenders/
 
+# Paperweight mappings
+.paper-nms
+
 # Annotation Processing
 .apt_generated/
 .apt_generated_test/

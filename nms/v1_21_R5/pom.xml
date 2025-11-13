@@ -6,19 +6,23 @@
 
     <parent>
         <groupId>ru.soknight.packetinventoryapi</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>nms-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>plugin</artifactId>
-    <name>Packet Inventory API - Plugin</name>
+    <artifactId>v1_21_R5</artifactId>
+    <name>Packet Inventory API - NMS 1.21.R5</name>
+
+    <properties>
+        <java.version>21</java.version>
+        <spigot.api.version>1.21.8-R0.1-SNAPSHOT</spigot.api.version>
+    </properties>
 
     <dependencies>
         <!-- Core module -->
         <dependency>
             <groupId>ru.soknight.packetinventoryapi</groupId>
             <artifactId>core</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Spigot API -->
@@ -27,7 +31,27 @@
             <artifactId>spigot-api</artifactId>
         </dependency>
 
-        <!-- ProtocoLib -->
+        <!-- paper nms 1.21.8 -->
+        <dependency>
+            <groupId>ca.bkaw</groupId>
+            <artifactId>paper-nms</artifactId>
+            <version>1.21.8-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Mojang Authlib -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+        </dependency>
+
+        <!-- Mojang Brigadier -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>brigadier</artifactId>
+        </dependency>
+
+        <!-- ProtocolLib -->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
@@ -37,11 +61,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ru.soknight.packetinventoryapi</groupId>
-            <artifactId>v1_21_R5</artifactId>
         </dependency>
     </dependencies>
 
@@ -53,7 +72,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-toolchains-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,11 +80,11 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
+                <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-toolchains-plugin</artifactId>
+                <groupId>ca.bkaw</groupId>
+                <artifactId>paper-nms-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

@@ -3,7 +3,7 @@ main: ru.soknight.packetinventoryapi.PacketInventoryAPIPlugin
 author: SoKnight
 version: ${plugin.version}
 depend: [ProtocolLib]
-softdepend: [AdvancedSkins, ItemsAdder, PlaceholderAPI]
+softdepend: [ItemsAdder, PlaceholderAPI]
 description: ${plugin.description}
 api-version: 1.13
 

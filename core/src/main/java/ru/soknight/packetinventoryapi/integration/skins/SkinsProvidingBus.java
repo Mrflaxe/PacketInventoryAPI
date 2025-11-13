@@ -21,9 +21,6 @@ public final class SkinsProvidingBus {
 
     private void load() {
         registerSkinsProvider(new CurrentSkinsProvider());
-
-        if(plugin.getServer().getPluginManager().isPluginEnabled("AdvancedSkins"))
-            registerSkinsProvider(new AdvancedSkinsProvider());
     }
 
     public @NotNull Optional<WrappedGameProfile> findPlayerSkin(@NotNull String playerName) {

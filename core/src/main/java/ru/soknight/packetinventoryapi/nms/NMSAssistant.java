@@ -28,11 +28,11 @@ public class NMSAssistant {
     }
 
     public static void init(Plugin plugin) throws UnsupportedVersionException {
-        plugin.getLogger().info("Detected NMS version: " + NMS_VERSION);
-
         itemStackPatcher = loadProxiedImplementation(ItemStackPatcher.class);
         vanillaItemBuilderSupplier = loadBuilder(VanillaItem.class, VanillaItem.Builder.class);
         menuItemBuilderSupplier = loadBuilder(RegularMenuItem.class, RegularMenuItem.Builder.class);
+
+        plugin.getLogger().info("Detected NMS version: " + NMS_VERSION);
     }
 
     private static <T, B> Invoker<B> loadBuilder(Class<T> clazz, Class<B> builderClass) throws UnsupportedVersionException {
@@ -40,9 +40,9 @@ public class NMSAssistant {
         if(annotation == null)
             throw new IllegalArgumentException("class '" + clazz.getName() + "' must be annotated with @ImplementedAs!");
 
-        String value = annotation.value();
+        String className = annotation.value();
         try {
-            Class<?> nmsClass = Class.forName(PACKAGE + "." + value);
+            Class<?> nmsClass = Class.forName(PACKAGE + "." + className);
             Method method = nmsClass.getMethod("build", ConfigurationSection.class);
             return args -> invokeQuietly(method, args);
         } catch (Throwable ex) {
@@ -88,8 +88,12 @@ public class NMSAssistant {
     }
 
     public static String getNMSVersion() {
-        String packageName = Bukkit.getServer().getClass().getPackage().getName();
-        return packageName.substring(packageName.lastIndexOf('.') + 2);
+        String bukkitVersion = Bukkit.getServer().getBukkitVersion();
+        if (bukkitVersion.equals("1.21.8-R0.1-SNAPSHOT")) {
+            return "1_21_R5";
+        }
+
+        return null;
     }
 
     public static VanillaItem.Builder<?, ?> newVanillaItem() {

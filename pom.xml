@@ -10,7 +10,7 @@
         <module>core</module>
         <module>nms</module>
         <module>plugin</module>
-        <module>magenta</module>
+        <module>cyan</module>
     </modules>
 
     <name>Packet Inventory API - Parent</name>
@@ -20,12 +20,7 @@
     <properties>
         <!-- Building -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>8</java.version>
-
-        <!-- Manifest -->
-        <manifest.developer.contact>https://vk.me/soknight</manifest.developer.contact>
-        <manifest.developer.name>SoKnight</manifest.developer.name>
-        <manifest.github>https://github.com/SoKnight/PacketInventoryAPI/</manifest.github>
+        <java.version>21</java.version>
 
         <!-- Plugin properties -->
         <plugin.name>PacketInventoryAPI</plugin.name>
@@ -33,19 +28,16 @@
         <plugin.version>${project.version}</plugin.version>
 
         <!-- Additional libs versions -->
-        <spigot.api.version>1.15.2-R0.1-SNAPSHOT</spigot.api.version>
+        <spigot.api.version>1.21.8-R0.1-SNAPSHOT</spigot.api.version>
         <protocollib.version>4.8.0</protocollib.version>
         <placeholderapi.version>2.11.1</placeholderapi.version>
-        <advancedskins.api.version>2.1.0</advancedskins.api.version>
         <itemsadder.api.version>2.4.21</itemsadder.api.version>
         <jetbrains.annotations.version>22.0.0</jetbrains.annotations.version>
-        <lombok.version>1.18.22</lombok.version>
-
-        <systempath.advancedskins>C:/Work/libs/AdvancedSkins-api.jar</systempath.advancedskins>
+        <lombok.version>1.18.42</lombok.version>
 
         <!-- Maven plugins -->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
+        <maven.shade.plugin.version>3.6.1</maven.shade.plugin.version>
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
         <maven.deploy.plugin.version>3.0.0-M1</maven.deploy.plugin.version>
@@ -53,6 +45,11 @@
     </properties>
 
     <repositories>
+        <!-- Spigot Maven repository -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
         <repository>
             <id>dmulloy2-repo</id>
             <url>https://repo.dmulloy2.net/nexus/repository/public/</url>
@@ -77,11 +74,6 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-        <!-- Spigot Maven repository -->
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
@@ -134,15 +126,6 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- AdvancedSkins API -->
-            <dependency>
-                <groupId>me.soknight.advancedskins</groupId>
-                <artifactId>api</artifactId>
-                <version>${advancedskins.api.version}</version>
-                <scope>system</scope>
-                <systemPath>${systempath.advancedskins}</systemPath>
-            </dependency>
-
             <!-- ItemsAdder API -->
             <dependency>
                 <groupId>com.github.LoneDev6</groupId>
@@ -167,66 +150,9 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- All NMS implementations from 1.13.R1 to 1.18.R2 -->
-
-            <!-- NMS 1.13.R1 -->
             <dependency>
                 <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_13_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.13.R2 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_13_R2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.14.R1 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_14_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.15.R1 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_15_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.16.R1 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_16_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.16.R2 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_16_R2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.16.R3 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_16_R3</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.17.R1 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_17_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.18.R1 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_18_R1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- NMS 1.18.R2 -->
-            <dependency>
-                <groupId>ru.soknight.packetinventoryapi</groupId>
-                <artifactId>v1_18_R2</artifactId>
+                <artifactId>v1_21_R5</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -268,11 +194,6 @@
                             <manifest>
                                 <addDefaultEntries>false</addDefaultEntries>
                             </manifest>
-                            <manifestEntries>
-                                <Developer-Contact>${manifest.developer.contact}</Developer-Contact>
-                                <Developer-Name>${manifest.developer.name}</Developer-Name>
-                                <GitHub>${manifest.github}</GitHub>
-                            </manifestEntries>
                         </archive>
                     </configuration>
                 </plugin>
@@ -396,13 +317,7 @@
                     <configuration>
                         <toolchains>
                             <jdk>
-                                <version>8</version>
-                            </jdk>
-                            <jdk>
-                                <version>16</version>
-                            </jdk>
-                            <jdk>
-                                <version>17</version>
+                                <version>21</version>
                             </jdk>
                         </toolchains>
                     </configuration>

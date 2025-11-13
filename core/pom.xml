@@ -34,12 +34,6 @@
             <artifactId>placeholderapi</artifactId>
         </dependency>
 
-        <!-- AdvancedSkins API -->
-        <dependency>
-            <groupId>me.soknight.advancedskins</groupId>
-            <artifactId>api</artifactId>
-        </dependency>
-
         <!-- ItemsAdder API -->
         <dependency>
             <groupId>com.github.LoneDev6</groupId>
@@ -57,6 +51,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
