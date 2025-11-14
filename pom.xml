@@ -229,6 +229,7 @@
                         <shadedArtifactAttached>true</shadedArtifactAttached>
                         <shadedClassifierName>full</shadedClassifierName>
                         <finalName>${plugin.name}-${project.artifactId}-full</finalName>
+
                         <filters>
                             <filter>
                                 <artifact>*:*</artifact>
@@ -258,9 +259,13 @@
                                 </excludes>
                             </filter>
                             <filter>
-                                <artifact>org.*:*</artifact>
+                                <artifact>*:*</artifact>
                                 <excludes>
-                                    <exclude>META-INF/MANIFEST.MF</exclude>
+                                    <exclude>org/bukkit/**</exclude>
+                                    <exclude>org/spigotmc/**</exclude>
+                                    <exclude>net/md_5/**</exclude>
+                                    <exclude>net/minecraft/**</exclude>
+                                    <exclude>com/mojang/**</exclude>
                                 </excludes>
                             </filter>
                         </filters>
