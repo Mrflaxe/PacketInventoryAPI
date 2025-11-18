@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import ru.soknight.packetinventoryapi.container.Container;
 import ru.soknight.packetinventoryapi.event.type.WindowClickType;
 import ru.soknight.packetinventoryapi.packet.PacketAssistant;
 import ru.soknight.packetinventoryapi.packet.client.*;
@@ -80,10 +81,13 @@ public class PacketsListener extends PacketAdapter {
     }
 
     private boolean onClickWindow(PacketClientClickWindow packet) {
+        Player player =  packet.getPlayer();
         WindowClickType clickType = packet.getClickType();
         int clickedSlot = packet.getSlot();
-        ItemStack clickedItem = packet.getClickedItem();
-        return storage.onWindowClick(packet.getPlayer(), clickType, clickedSlot, clickedItem);
+        Container<?,?> container = storage.getOpened(player.getName());
+        ItemStack clickedItem = container.getContentData().get(clickedSlot);
+
+        return storage.onWindowClick(player, clickType, clickedSlot, clickedItem);
     }
     
 //    private boolean onTransaction(WrapperPlayClientTransaction packet, Player player) {

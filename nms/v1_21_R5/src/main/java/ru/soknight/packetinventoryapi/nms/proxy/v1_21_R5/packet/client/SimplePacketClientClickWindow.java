@@ -22,12 +22,12 @@ public class SimplePacketClientClickWindow extends WrappedClientPacket implement
 
     @Override
     public int getSlot() {
-        return handle.getIntegers().read(2);
+        return handle.getShorts().read(0);
     }
 
     @Override
     public int getButtonID() {
-        return handle.getIntegers().read(3);
+        return handle.getBytes().read(0);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class SimplePacketClientClickWindow extends WrappedClientPacket implement
 
     @Override
     public ItemStack getClickedItem() {
-        return handle.getItemModifier().read(0);
+        return null; // Packet no longer provides a real ItemStack instance.
     }
 
     @Getter
@@ -53,5 +53,8 @@ public class SimplePacketClientClickWindow extends WrappedClientPacket implement
 
         private final int id;
     }
+
+    // Helper record
+    public record ChangedSlot(int index, ItemStack item) { }
 
 }
