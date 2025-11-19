@@ -1,7 +1,7 @@
 package ru.soknight.packetinventoryapi.container.type;
 
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

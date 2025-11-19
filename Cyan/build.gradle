@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version "9.1.0"
+}
+
+dependencies {
+    implementation(project(":core"))
+    implementation(project(":plugin"))
+    implementation(project(":nms")) {
+        transitive = false
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'net/minecraft/**'
+    exclude 'com/mojang/**'
+    exclude 'io/papermc/**'
+    exclude 'META-INF/versions/**'
+}

@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+    }
+}
+
+rootProject.name = 'packetinventoryapi'
+
+include(
+        "core",
+        "nms",
+        "plugin",
+        "cyan"
+)
