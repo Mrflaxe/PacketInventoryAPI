@@ -1,0 +1,99 @@
+# An example menu configuration for the Packet Inventory API
+# Author & Developer: SoKnight
+#
+# Menu item options:
+#     [option____________][type of value_____][short description__________________________________________]
+#   - name                (string)            a name of item to display
+#   - lore                (strings list)      a lore of item to display
+#   - material            (string)            a material (type) of item
+#   - amount              (integer)           an amount of this item (from 1 to max stack size)
+#   - slot                (integer)           an index of slot where this item will be displayed
+#   - slots               (integers list)     an array of slot indexes where this item will be displayed
+#                         (string)            a list of slot ranges separated with ', ' part (e.g.: '0-12, 14-26')
+#   - player-head         (string)            a name of player which head will be displayed as item icon (you can use %player_name% placeholder)
+#   - base64-head         (string)            a base64 encoded value of the head texture to display
+#   - custom-model-data   (integer)           a custom model data ID (useful for custom items with resource packs)
+#   - itemsadder-item     (string)            a namespaced ID of custom item provided by ItemsAdder (e.g.: 'myplugin:example_item' or 'example_item')
+#   - pattern             (string)            a filling pattern for this item (actual for @filler): 'full' or 'frame'
+#   - enchanted           (boolean)           if enabled then item will have enchantment glowing effect
+
+# A title of window
+title: '&4Stuffs menu'
+
+# Amount of rows (for GenericContainer typed menus only!)
+rows: 5
+
+# Default menu content
+content:
+  creative:
+    name: '&eGamemode: &6Creative'
+    lore:
+    - '&8/gamemode creative'
+    - ' '
+    - ' &7Click to change gamemode to creative '
+    - ' '
+    material: red_dye
+    slot: 11
+
+  stats:
+    $default:
+      name: '&eYour stats'
+      material: red_dye
+      slot: 15
+
+    first:
+      lore:
+      - '&8/super-unique-stats-command'
+      - ' '
+      - ' &7Statistic page: &b#1 '
+      - ' '
+      - ' &7Your name: &b%player_name% '
+      - ' &7Server uptime: &b%server_uptime% '
+      - ' '
+
+    second:
+      lore:
+      - '&8/super-unique-stats-command'
+      - ' '
+      - ' &7Statistic page: &b#2 '
+      - ' '
+      - ' &7Your name: &b%player_name% '
+      - ' &7Server uptime: &b%server_uptime% '
+      - ' '
+
+  page-element:
+    $default:
+      name: '&eSomeone page element'
+      slots: '28-34'
+
+    second:
+      lore:
+      - '&8/super-unique-stats-command'
+      - ' '
+      - ' &7Statistic page: &b#1 '
+      - ' '
+      - ' &7Your name: &b%player_name% '
+      - ' &7Server uptime: &b%server_uptime% '
+      - ' '
+      material: yellow_dye
+
+    third:
+      lore:
+      - ' '
+      - ' &7Person data: '
+      - '   &fID: &b#%id% '
+      - '   &fName: &b%real_name% &7(%nickname%) '
+      - '   &fAge: &b%age% y.o.'
+      - ' '
+      player-head: '%nickname%'
+
+  $filler:
+    name: ' '
+    material: gray_stained_glass_pane
+    # Fill patterns: 
+    # - all - all inventory (including top container, player inventory & hotbar)
+    # - top - top container inventory
+    # - bottom - bottom container inventory (player inventory & hotbar)
+    # - inventory - player inventory only
+    # - hotbar - player hotbar only
+    pattern: top

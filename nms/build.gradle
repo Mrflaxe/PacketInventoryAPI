@@ -1,0 +1,18 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
+}
+
+dependencies {
+    implementation(project(":core"))
+
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+
+    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+
+    compileOnly 'net.dmulloy2:ProtocolLib:5.4.0'
+    implementation("net.kyori:adventure-text-serializer-bungeecord:4.4.1")
+}

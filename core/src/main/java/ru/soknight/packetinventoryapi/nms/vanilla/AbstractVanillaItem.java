@@ -22,7 +22,7 @@ import java.util.function.Function;
 @Getter
 public abstract class AbstractVanillaItem<I extends AbstractVanillaItem<I, B>, B extends AbstractVanillaItem.Builder<I, B>> implements VanillaItem<I, B> {
 
-    public static final Enchantment GLOWING_ENCHANTMENT = Enchantment.UNBREAKING;
+    public static final Enchantment GLOWING_ENCHANTMENT = Enchantment.DURABILITY;
 
     @Getter(AccessLevel.NONE) private WrappedItemStack bukkitItem;
     @Getter(AccessLevel.NONE) protected boolean itemRemapRequired;
