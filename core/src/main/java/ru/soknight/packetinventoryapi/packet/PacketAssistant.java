@@ -50,8 +50,9 @@ public class PacketAssistant {
         registerServerPacket(PacketServerTradeList.class);
         registerServerPacket(PacketServerWindowItems.class);
         registerServerPacket(PacketServerWindowProperty.class);
+        registerServerPacket(PacketServerSetCursor.class);
 
-        plugin.getLogger().info("Successfully registered 12 packets implementations for your version!");
+        plugin.getLogger().info("Successfully registered 13 packets implementations for your version!");
     }
 
     private static <P extends ClientPacket> void registerClientPacket(Class<P> packetClass) throws NoClientPacketConstructorException {

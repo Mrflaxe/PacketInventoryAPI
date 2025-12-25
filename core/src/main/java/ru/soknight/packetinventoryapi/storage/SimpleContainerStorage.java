@@ -154,15 +154,17 @@ public final class SimpleContainerStorage implements ContainerStorage {
             ItemStack clickedItem
     ) {
         C container = (C) containers.get(actor.getName());
-        if(container == null)
+        if (container == null) {
             return false;
+        }
 
-        if(!container.isInteractable()) {
+        if (!container.isInteractable()) {
             int modeId = clickType.getModeId();
-            if(modeId == 1 || modeId == 2 || modeId == 4)
+            if (modeId == 1 || modeId == 2 || modeId == 4) {
                 container.updateContent().pushSync();
-            else
+            } else {
                 cancelClick(actor, container, clickedSlot, clickedItem);
+            }
         }
 
         runAsync(() -> container.onClick(new WindowClickEvent<>(actor, container, clickedSlot, clickType, clickedItem)));
@@ -171,8 +173,9 @@ public final class SimpleContainerStorage implements ContainerStorage {
 
     @SneakyThrows
     public void cancelClick(Player player, Container<?, ?> container, int slot, ItemStack clickedItem) {
-        if(slot < 0)
+        if (slot < 0) {
             return;
+        }
 
         PacketAssistant.createServerPacket(PacketServerSetSlot.class)
                 .windowID(-1)
@@ -180,7 +183,7 @@ public final class SimpleContainerStorage implements ContainerStorage {
                 .item(EMPTY_ITEM)
                 .send(player);
 
-        if(clickedItem != null && clickedItem.getType() != Material.AIR)
+        if (clickedItem != null && clickedItem.getType() != Material.AIR)
             PacketAssistant.createServerPacket(PacketServerSetSlot.class)
                     .windowID(container.getInventoryId())
                     .slot(slot)
@@ -190,36 +193,38 @@ public final class SimpleContainerStorage implements ContainerStorage {
     
     public boolean clickedWindowButton(Player player, int payloadId) {
         Container<?, ?> container = containers.get(player.getName());
-        if(container == null) return false;
-        
-        // enchantment table
-        if(container instanceof EnchantmentTableContainer) {
-            EnchantmentTableContainer table = (EnchantmentTableContainer) container;
-            EnchantmentPosition position = EnchantmentPosition.getById(payloadId);
-            runAsync(() -> table.onEnchantmentSelected(new EnchantmentSelectEvent(player, table, position)));
-        // lectern
-        } else if(container instanceof LecternContainer) {
-            LecternContainer lectern = (LecternContainer) container;
-            if(payloadId > 100) {
-                int page = payloadId - 100;
-                runAsync(() -> lectern.onPageOpened(new LecternPageOpenEvent(player, lectern, page)));
-            } else {
-                LecternButtonType buttonType = LecternButtonType.getById(payloadId);
-                runAsync(() -> lectern.onButtonClicked(new LecternButtonClickEvent(player, lectern, buttonType)));
+        switch (container) {
+            case null -> {
+                return false;
             }
-        // stonecutter
-        } else if(container instanceof StonecutterContainer) {
-            StonecutterContainer stonecutter = (StonecutterContainer) container;
-            runAsync(() -> stonecutter.onRecipeSelected(new RecipeSelectEvent(player, stonecutter, payloadId)));
-        // loom
-        } else if(container instanceof LoomContainer) {
-            LoomContainer loom = (LoomContainer) container;
-            runAsync(() -> loom.onPatternSelected(new PatternSelectEvent(player, loom, payloadId)));
-        // anything else - close this inventory
-        } else {
-            close(container, false);
+
+            // enchantment table
+            case EnchantmentTableContainer table -> {
+                EnchantmentPosition position = EnchantmentPosition.getById(payloadId);
+                runAsync(() -> table.onEnchantmentSelected(new EnchantmentSelectEvent(player, table, position)));
+                // lectern
+            }
+            case LecternContainer lectern -> {
+                if (payloadId > 100) {
+                    int page = payloadId - 100;
+                    runAsync(() -> lectern.onPageOpened(new LecternPageOpenEvent(player, lectern, page)));
+                } else {
+                    LecternButtonType buttonType = LecternButtonType.getById(payloadId);
+                    runAsync(() -> lectern.onButtonClicked(new LecternButtonClickEvent(player, lectern, buttonType)));
+                }
+                // stonecutter
+            }
+            case StonecutterContainer stonecutter ->
+                    runAsync(() -> stonecutter.onRecipeSelected(new RecipeSelectEvent(player, stonecutter, payloadId)));
+
+            // loom
+            case LoomContainer loom ->
+                    runAsync(() -> loom.onPatternSelected(new PatternSelectEvent(player, loom, payloadId)));
+
+            // anything else - close this inventory
+            default -> close(container, false);
         }
-        
+
         return true;
     }
     

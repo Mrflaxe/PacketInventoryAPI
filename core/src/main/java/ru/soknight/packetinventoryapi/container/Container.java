@@ -429,15 +429,16 @@ public abstract class Container<C extends Container<C, R>, R extends ContentUpda
 
     public void onClick(@NotNull WindowClickEvent<C, R> event) {
         int slot = event.getClickedSlot();
-        if(slotsClickListeners.containsKey(slot))
+        if (slotsClickListeners.containsKey(slot)) {
             slotsClickListeners.get(slot).handle(event);
+        }
 
         rangesClickListeners.entrySet()
                 .parallelStream()
                 .filter(e -> slot == -999 || e.getKey().contains(slot))
                 .forEach(e -> e.getValue().handle(event));
 
-        if(clickOutsideToClose && event.getClickType().isOutsideInventory())
+        if (clickOutsideToClose && event.getClickType().isOutsideInventory())
             close();
     }
 

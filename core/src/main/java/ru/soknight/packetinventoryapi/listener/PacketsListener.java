@@ -6,6 +6,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -13,6 +14,7 @@ import ru.soknight.packetinventoryapi.container.Container;
 import ru.soknight.packetinventoryapi.event.type.WindowClickType;
 import ru.soknight.packetinventoryapi.packet.PacketAssistant;
 import ru.soknight.packetinventoryapi.packet.client.*;
+import ru.soknight.packetinventoryapi.packet.server.PacketServerSetCursor;
 import ru.soknight.packetinventoryapi.storage.SimpleContainerStorage;
 
 // TODO TRANSACTION IS DEPRECATED IN 1.17!
@@ -76,8 +78,16 @@ public class PacketsListener extends PacketAdapter {
         // beacon effect change
         else if(type == PacketType.Play.Client.BEACON)
             cancelled = onBeacon(PacketAssistant.createClientPacket(PacketClientSetBeaconEffect.class, packet, player));
-        
+
         event.setCancelled(cancelled);
+        if (cancelled) {
+            clearCursor(player);
+        }
+    }
+
+    private void clearCursor(Player player) {
+        PacketServerSetCursor packetServerSetCursor = PacketAssistant.createServerPacket(PacketServerSetCursor.class);
+        packetServerSetCursor.send(player, new ItemStack(Material.AIR));
     }
 
     private boolean onClickWindow(PacketClientClickWindow packet) {
@@ -85,9 +95,40 @@ public class PacketsListener extends PacketAdapter {
         WindowClickType clickType = packet.getClickType();
         int clickedSlot = packet.getSlot();
         Container<?,?> container = storage.getOpened(player.getName());
-        ItemStack clickedItem = container.getContentData().get(clickedSlot);
+
+        if (container == null) {
+            return false;
+        }
+
+        ItemStack clickedItem;
+        if (clickedSlot > container.containerSlots().getMax()) {
+            int inventoryIndex = rawToBukkitPlayerSlot(clickedSlot, container.containerSlots().getMax() + 1);
+            clickedItem = player.getInventory().getItem(inventoryIndex);
+        } else {
+            clickedItem = container.getContentData().get(clickedSlot);
+        }
 
         return storage.onWindowClick(player, clickType, clickedSlot, clickedItem);
+    }
+
+    private int rawToBukkitPlayerSlot(int rawSlot, int containerSize) {
+        int visualSlot = rawSlot - containerSize;
+
+        if (visualSlot < 0 || visualSlot >= 36) {
+            return -1;
+        }
+
+        int visualRow = visualSlot / 9;
+        int col = visualSlot % 9;
+
+        int bukkitRow;
+        if (visualRow == 3) {
+            bukkitRow = 0;
+        } else {
+            bukkitRow = 3 - visualRow;
+        }
+
+        return bukkitRow * 9 + col;
     }
     
 //    private boolean onTransaction(WrapperPlayClientTransaction packet, Player player) {
