@@ -112,23 +112,11 @@ public class PacketsListener extends PacketAdapter {
     }
 
     private int rawToBukkitPlayerSlot(int rawSlot, int containerSize) {
-        int visualSlot = rawSlot - containerSize;
-
-        if (visualSlot < 0 || visualSlot >= 36) {
-            return -1;
+        if (rawSlot >= containerSize + 27) {
+            return rawSlot - containerSize - 27;
         }
 
-        int visualRow = visualSlot / 9;
-        int col = visualSlot % 9;
-
-        int bukkitRow;
-        if (visualRow == 3) {
-            bukkitRow = 0;
-        } else {
-            bukkitRow = 3 - visualRow;
-        }
-
-        return bukkitRow * 9 + col;
+        return rawSlot - containerSize + 9;
     }
     
 //    private boolean onTransaction(WrapperPlayClientTransaction packet, Player player) {
